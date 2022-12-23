@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 
 def miss_marvel(request):
-    return render(request, 'home.html', context={'name': 'abauna', })
+    return render(request, 'page/home.html', context={'name': 'abauna', })
 
 
 def visao(request):
