@@ -1,23 +1,18 @@
-
 {% include "parte/head.html"%}
 
 
 <body>
-{% include "parte/header.html" %}
-<div class="search-container">
-<div class="container">
+    {% include "parte/header.html" %}
 
-    <form action="" class= "search-form">
-        <input type="search" class="search-input" name="search">
-        <button type="submit" class= "search-button"><i class="fas fa-search">
+    <div class="main-content-container">
+        <div class="main-content list container">
 
-        </i></button>
-        
-    </form>
-</div>
+            {% include "parte/recipe.html" %}
+        </div>
 
-
-</div>
+    </div>
+    </div>
+    {% include "parte/rodape.html" %}
 </body>
 
 </html>
