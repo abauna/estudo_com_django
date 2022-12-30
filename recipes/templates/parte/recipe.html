@@ -2,6 +2,7 @@
     <div class="recipe-cover">
 
         <a href="{% url 'recipes:recipe' recipe.id %}">
+            {% load static %}
         <img src="{{recipe.cover.url}}">
     </a>
     </div>
