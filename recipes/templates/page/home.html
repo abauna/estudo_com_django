@@ -7,6 +7,8 @@
         <div class="main-content list container">
 {% for recipe in recipes  %}
 {% include "parte/recipe.html" %}
+{%empty%}
+<h1>sem  receitas hj</h1>
 {% endfor %}
 
 
