@@ -36,6 +36,24 @@ def make_recipe():
     }
 
 
+def make_recipe1():
+    return {
+        'id': fake.random_number(digits=2, fix_len=True),
+        'title': fake.sentence(nb_words=6),
+        'description': fake.sentence(nb_words=12),
+        'preparation_time': fake.random_number(digits=2, fix_len=True),
+        'preparation_time_unit': 'Minutos',
+        'servings': fake.random_number(digits=2, fix_len=True),
+        'servings_unit': 'Porção',
+        'preparation_steps': fake.text(3000),
+
+
+        'cover': {
+            'url': 'https://loremflickr.com/%s/%s/food,cook' % rand_ratio(),
+        }
+    }
+
+
 if __name__ == '__main__':
     from pprint import pprint
     pprint(make_recipe())
