@@ -1,28 +1,15 @@
 
-from recipes.models import Category, Recipe
-from recipes import views
-from django.urls import resolve, reverse
-from django.test import TestCase
 from django.contrib.auth.models import User
-from random import randint
+from django.test import TestCase
+from django.urls import resolve, reverse
 
-from faker import Faker
-
-
-def rand_ratio():
-    return randint(840, 900), randint(473, 573)
-
-
-fake = Faker('pt_BR')
-
+from recipes import views
+from recipes.models import Category, Recipe
 
 # Create your tests here.
 
-
-class Recipeviews(TestCase):
-    def test_home(self):
-        view = resolve(reverse('recipes:home'))
-        self.assertIs(view.func, views.recipe)
+from recipes.tests.test_base import Recipe_test_base
+class Recipeviews(Recipe_test_base):
 
     def test_cate(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
@@ -41,6 +28,7 @@ class Recipeviews(TestCase):
         self.assertTemplateUsed(response, 'page/home.html')
 
     def test_recipe_home_sem_receitas(self):
+        Recipe.objects.get(pk=1).delete()
         response = self.client.get(reverse('recipes:home'))
         self.assertIn(
             'sem  receitas',
@@ -48,32 +36,10 @@ class Recipeviews(TestCase):
         )
 
     def test_recipe_home_com_receitas(self):
-        category = Category.objects.create(name='test')
-        author = User.objects.create(
-            first_name='user',
-            last_name='user',
-            username='user',
-            password='user',
-            email='user',
-        )
-        recipe = Recipe.objects.create(
-            category=category,
-            author=author,
-            title='teste34',
-            description='teste',
-            slug='teste',
-            preparation=5,
-            preparation_time_unit='teste',
-            servings=5,
-            servings_unit='teste',
-            preparation_steps='teste',
-            preparation_steps_is_html=False,
-            is_published=True,
-            cover='media/recipes/covers/2022/12/28/churrasco.jpeg'
-        )
+
         response = self.client.get(reverse('recipes:home'))
-        content=response.content.decode('utf-8')
-        self.assertIn('teste34',content)
+        content = response.content.decode('utf-8')
+        self.assertIn('teste34', content)
 
     def test_recipe_category_view_returns_status_code_404(self):
         response = self.client.get(
@@ -81,5 +47,6 @@ class Recipeviews(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_recipe_view_returns_status_code_404(self):
+        Recipe.objects.get(pk=1).delete()
         response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
         self.assertEqual(response.status_code, 404)
