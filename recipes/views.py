@@ -1,8 +1,8 @@
-from django.http import HttpResponse
+
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from .models import Recipe
-from .utils.recipes.factory import make_recipe
+
 
 
 # Create your views here.
@@ -34,5 +34,5 @@ def category(request, category_id):
 
     return render(request, 'page/category.html', context={
         'recipes': recipes,
-        'title': f'{recipes.first().category.name}'
+        'title': f'{recipes[0].category.name}- Category | '
     })

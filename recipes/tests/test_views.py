@@ -1,14 +1,11 @@
 
-from django.contrib.auth.models import User
-from django.test import TestCase
 from django.urls import resolve, reverse
-
 from recipes import views
-from recipes.models import Category, Recipe
+from recipes.tests.test_base import Recipe_test_base
 
 # Create your tests here.
 
-from recipes.tests.test_base import Recipe_test_base
+
 class Recipeviews(Recipe_test_base):
 
     def test_cate(self):
@@ -28,7 +25,7 @@ class Recipeviews(Recipe_test_base):
         self.assertTemplateUsed(response, 'page/home.html')
 
     def test_recipe_home_sem_receitas(self):
-        Recipe.objects.get(pk=1).delete()
+
         response = self.client.get(reverse('recipes:home'))
         self.assertIn(
             'sem  receitas',
@@ -36,17 +33,27 @@ class Recipeviews(Recipe_test_base):
         )
 
     def test_recipe_home_com_receitas(self):
-
+        self.make_recipe(title='aaa')
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
-        self.assertIn('teste34', content)
-
+        self.assertIn('aaa', content)
+    def test_recipe_cate_com_receitas(self):        
+        self.make_recipe(title='aaa')
+        response=self.client.get(reverse('recipes:category', args=(1,)))
+        content = response.content.decode('utf-8')
+        self.assertIn('aaa', content)
+    def test_recipe_detales_com_receitas(self):        
+        self.make_recipe(title='aaa')
+        response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
+        content = response.content.decode('utf-8')
+        self.assertIn('aaa', content)
+    
     def test_recipe_category_view_returns_status_code_404(self):
         response = self.client.get(
             reverse('recipes:category', kwargs={'category_id': 100}))
         self.assertEqual(response.status_code, 404)
 
     def test_recipe_view_returns_status_code_404(self):
-        Recipe.objects.get(pk=1).delete()
+
         response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
         self.assertEqual(response.status_code, 404)
