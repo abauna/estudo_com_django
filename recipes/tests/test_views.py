@@ -1,5 +1,6 @@
 
 from django.urls import resolve, reverse
+
 from recipes import views
 from recipes.tests.test_base import Recipe_test_base
 
@@ -37,17 +38,19 @@ class Recipeviews(Recipe_test_base):
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
         self.assertIn('aaa', content)
-    def test_recipe_cate_com_receitas(self):        
+
+    def test_recipe_cate_com_receitas(self):
         self.make_recipe(title='aaa')
-        response=self.client.get(reverse('recipes:category', args=(1,)))
+        response = self.client.get(reverse('recipes:category', args=(1,)))
         content = response.content.decode('utf-8')
         self.assertIn('aaa', content)
-    def test_recipe_detales_com_receitas(self):        
+
+    def test_recipe_detales_com_receitas(self):
         self.make_recipe(title='aaa')
         response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
         content = response.content.decode('utf-8')
         self.assertIn('aaa', content)
-    
+
     def test_recipe_category_view_returns_status_code_404(self):
         response = self.client.get(
             reverse('recipes:category', kwargs={'category_id': 100}))
