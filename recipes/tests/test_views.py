@@ -33,6 +33,15 @@ class Recipeviews(Recipe_test_base):
             response.content.decode('utf-8')
         )
 
+    def test_recipe_home_com_receitas_n_publicadas(self):
+        self.make_recipe(title='aaa', is_published=False)
+        response = self.client.get(reverse('recipes:home'))
+
+        self.assertIn(
+            'sem  receitas',
+            response.content.decode('utf-8')
+        )
+
     def test_recipe_home_com_receitas(self):
         self.make_recipe(title='aaa')
         response = self.client.get(reverse('recipes:home'))
@@ -45,11 +54,25 @@ class Recipeviews(Recipe_test_base):
         content = response.content.decode('utf-8')
         self.assertIn('aaa', content)
 
+    def test_recipe_cate_com_receitas_n_publicadas(self):
+        recipe = self.make_recipe(title='aaa', is_published=False)
+        response = self.client.get(
+            reverse('recipes:category', args=(recipe.id,)))
+
+        self.assertEqual(response.status_code, 404)
+
     def test_recipe_detales_com_receitas(self):
         self.make_recipe(title='aaa')
         response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
         content = response.content.decode('utf-8')
         self.assertIn('aaa', content)
+
+    def test_recipe_detalhes_com_receitas_n_publicadas(self):
+        recipe = self.make_recipe(title='aaa', is_published=False)
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': recipe.category.id}))
+
+        self.assertEqual(response.status_code, 404)
 
     def test_recipe_category_view_returns_status_code_404(self):
         response = self.client.get(
