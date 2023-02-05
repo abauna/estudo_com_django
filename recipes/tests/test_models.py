@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from parameterized import parameterized
 
-from recipes.models import Category, Recipe
+from recipes.models import Recipe
 from recipes.tests.test_base import Recipe_test_base
 
 
@@ -55,3 +55,10 @@ class RecipesModelTest(Recipe_test_base):
     def test_recipe_publi_false(self):
         recipe = self.recipe_not_defalt()
         self.assertFalse(recipe.is_published)
+
+    def test_recipe_represent(self):
+        self.recipe.title = 'ttt'
+        self.recipe.full_clean()
+        self.recipe.save()
+        self.assertEqual(
+            str(self.recipe), 'ttt')
