@@ -5,7 +5,7 @@
         <h1>
             <a class="main-logo" href="{% url 'recipes:home' %}">
                 <i class="fas fa-utensils main-logo-icon"></i>
-                <span> receitas 
+                <span> receitas
 
                 </span>
             </a>
@@ -18,8 +18,8 @@
 <div class="search-container">
     <div class="container">
 
-        <form action="" class="search-form">
-            <input type="search" class="search-input" name="search">
+        <form action="{%url 'recipes:search%}" method="get " ,class="search-form">
+            <input type="search" class="search-input" name="search" required>
             <button type="submit" class="search-button"><i class="fas fa-search">
 
                 </i></button>
