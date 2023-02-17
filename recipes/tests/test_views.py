@@ -18,7 +18,8 @@ class Recipeviews(Recipe_test_base):
         self.assertIs(view.func, views.recipes)
 
     def test_recipe_home_view_returns_status_code_200_OK(self):
-        response = self.client.get(reverse('recipes:home'))
+        aux = reverse('recipes:home')
+        response = self.client.get(aux)
         self.assertEqual(response.status_code, 200)
 
     def test_recipe_home_view_tempetes_OK(self):
