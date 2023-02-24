@@ -1,5 +1,5 @@
 
-from django.http import HttpResponse
+from django.http.response import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from .models import Recipe
@@ -37,6 +37,6 @@ def category(request, category_id):
         'title': f'{recipes[0].category.name}- Category | '
     })
 
-    def search(request):
-        ...
-        return render(request, 'recipes/pages/search.html')
+
+def search(request):
+    return render(request, 'page/search.html')

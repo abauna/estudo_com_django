@@ -1,4 +1,4 @@
-
+from django.http.response import Http404
 from django.urls import resolve, reverse
 
 from recipes import views

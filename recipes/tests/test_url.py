@@ -1,7 +1,5 @@
 from django.test import TestCase
-from django.urls import resolve, reverse
-
-from recipes import views
+from django.urls import reverse
 
 # Create your tests here.
 
@@ -19,7 +17,6 @@ class RecipeURLsTest(TestCase):
         url = reverse('recipes:recipe', kwargs={'id': 1})
         self.assertEqual(url, '/recipes/1/')
 
-
-def test_recipe_search_url_is_correct(self):
-    url = reverse('recipes:search')
-    self.assertEqual(url, '/recipes/search/')
+    def test_recipe_search_url_is_correct(self):
+        url = reverse('recipes:search')
+        self.assertEqual(url, '/recipes/search/')
