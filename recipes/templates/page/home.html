@@ -1,8 +1,5 @@
 
-
-
 {% extends 'bases/base.html' %}
-
 {% block content %}
         <div class="main-content list container">
 {% for recipe in recipes  %}
@@ -10,8 +7,5 @@
 {%empty%}
 <h1>sem  receitas hj</h1>
 {% endfor %}
-
-
-
         </div>
         {% endblock content %}

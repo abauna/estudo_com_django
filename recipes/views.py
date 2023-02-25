@@ -39,4 +39,8 @@ def category(request, category_id):
 
 
 def search(request):
+
+    search_term = request.GET.get('q')
+    if not search_term:
+        raise Http404()
     return render(request, 'page/search.html')
