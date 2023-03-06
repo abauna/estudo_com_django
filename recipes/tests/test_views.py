@@ -1,4 +1,4 @@
-from django.http.response import Http404
+
 from django.urls import resolve, reverse
 
 from recipes import views
@@ -93,7 +93,7 @@ class Recipeviews(Recipe_test_base):
         self.assertIs(resolved.func, views.search)
 
     def test_recipe_search_loads_correct_template(self):
-        response = self.client.get(reverse('recipes:search'))
+        response = self.client.get(reverse('recipes:search') + '?q=teste')
         self.assertTemplateUsed(response, 'page/search.html')
 
     def test_recipe_search_raises_404_no_term(self):
