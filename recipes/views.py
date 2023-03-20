@@ -1,9 +1,11 @@
 
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from .models import Recipe
+from .utils.pages import make_pagination_range
 
 
 # Create your views here.
@@ -21,9 +23,22 @@ def recipe(request):
         is_published=True,
     ).order_by('-id')
 
+    try:
+        page_atual = int(request.GET.get('page', 1))
+    except ValueError:
+        page_atual = 1
+    paginator = Paginator(recipes, 9)
+    page_o = paginator.get_page(page_atual)
+    pagination_range = make_pagination_range(
+        paginator.page_range,
+        4,
+        page_atual,
+
+    )
     return render(request, 'page/home.html', context={
-        'recipes': recipes,
-        'detail_page': False
+        'recipes': page_o,
+        'detail_page': False,
+        'pagination_range': pagination_range
     })
 
 

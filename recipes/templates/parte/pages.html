@@ -1,0 +1,23 @@
+{%if recipes.has_other_pages%}
+
+<div class="conteiner pages">
+    <div class="page-content">
+        {% if pagination_range.first %}
+        <a class="page-link page-item" href="?page=1">1</a>
+        <span class="page-item">...</span>
+        {% endif %}
+        {% for page in pagination_range.pag %}
+        <div class="page-link page-item"></div> <a href="?page={{page}}">
+            {{page}}
+        </a>
+    </div>
+    {%endfor%}
+
+    {% if pagination_range.last %}
+    <span class="page-item">...</span>
+    <a class="page-link page-item" href="?page={{ pagination_range.total }}">
+        {{ pagination_range.total }}</a>
+    {% endif %}
+</div>
+</div>
+{% endif %}
