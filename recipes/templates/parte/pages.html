@@ -6,18 +6,26 @@
         <a class="page-link page-item" href="?page=1">1</a>
         <span class="page-item">...</span>
         {% endif %}
-        {% for page in pagination_range.pag %}
-        <div class="page-link page-item"></div> <a href="?page={{page}}">
-            {{page}}
-        </a>
-    </div>
-    {%endfor%}
 
-    {% if pagination_range.last %}
-    <span class="page-item">...</span>
-    <a class="page-link page-item" href="?page={{ pagination_range.total }}">
-        {{ pagination_range.total }}</a>
+
+        {% for page in pagination_range.pag %}
+        {% if pagination_range.current_page == page %}
+        <div class="page-link page-item current"> <a href="?page={{page}}">
+                {% else %}
+                <div class="page-link page-item"> <a href="?page={{page}}">
+                        {%endif%}
+
+
+                        {{page}}
+                    </a>
+                </div>
+                {%endfor%}
+
+                {% if pagination_range.last %}
+                <span class="page-item">...</span>
+                <a class="page-link page-item" href="?page={{ pagination_range.total }}">
+                    {{ pagination_range.total }}</a>
+                {% endif %}
+        </div>
+    </div>
     {% endif %}
-</div>
-</div>
-{% endif %}

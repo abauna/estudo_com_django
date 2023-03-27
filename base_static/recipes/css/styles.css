@@ -268,3 +268,27 @@ height: fit-content;
   .preparetion{
     padding: var(--spacing-gutter-medium);
   }
+.page-content{
+display: flex;
+flex-flow: row wrap;
+gap: 1rem 0.5rem;
+
+}
+.page-item{
+    text-decoration: none;
+    background: var(--color-gray-3);
+    padding: 0.5rem 1rem;
+
+  }
+.page-link{
+    text-decoration: none;
+    background: var(--color-primary);
+    color: var(--color-white);
+
+ }
+.current{
+    text-decoration: none;
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+
+}
